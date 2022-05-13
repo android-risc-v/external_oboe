@@ -66,6 +66,11 @@ private:
 #elif defined(__aarch64__)
 #define cpu_relax() asm volatile("yield" ::: "memory")
 
+#elif defined(__riscv)
+static inline void cpu_relax(void)
+{
+	sched_yield();
+}
 #else
 #error "cpu_relax is not defined for this architecture"
 #endif
